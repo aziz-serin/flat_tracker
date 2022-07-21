@@ -12,7 +12,7 @@ module.exports = {
         const all_apartments = await receive_apartments();
         const apartments_arr = all_apartments.split("\n\n\n\n")
         let current = new Date();
-        await interaction.editReply(`APARTMENTS AT${current.toLocaleTimeString()}:`)
+        await interaction.editReply(`APARTMENTS AT: ${current.toLocaleTimeString()}:`)
         for(let apartment of apartments_arr){
             await interaction.followUp(apartment);
         }
