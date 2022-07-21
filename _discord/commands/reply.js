@@ -14,7 +14,6 @@ module.exports = {
         let current = new Date();
         await interaction.editReply(`APARTMENTS AT${current.toLocaleTimeString()}:`)
         for(let apartment of apartments_arr){
-            console.log(apartment);
             await interaction.followUp(apartment);
         }
         await interaction.followUp(`END OF THE APARTMENTS LIST FOR NOW!!!`)
