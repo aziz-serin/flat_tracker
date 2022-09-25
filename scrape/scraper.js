@@ -4,7 +4,12 @@ const url = "https://www.rightmove.co.uk/property-to-rent/find.html?locationIden
 module.exports = async function(){
     let apartments;
     try{
-        const browser = await puppeteer.launch();
+        console.log("Launching puppeteer...");
+        const browser = await puppeteer.launch({
+            executablePath: process.env.CHROMIUM_PATH,
+            args: ['--no-sandbox'],
+        });
+        console.log("Launched puppeteer!")
         const page = await browser.newPage();
         const navigationPromise = page.waitForNavigation();
 
@@ -12,6 +17,7 @@ module.exports = async function(){
         await page.setViewport({width: 1440, height: 3440});
         await navigationPromise;
         await page.waitForSelector("#l-searchResults");
+        console.log("Fetching the apartments...");
         apartments = await page.$$eval("#l-searchResults", listings => {
             let query = listings.map(listing => listing.innerText)[0];
             // I am sure below this part can be done in a better and more clear way
